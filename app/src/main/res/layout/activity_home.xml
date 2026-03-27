@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFF5F5">
+
+
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/app_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/app_logo"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Women Safety App"
+            android:textSize="20sp"
+            android:textColor="#E91E63"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"/>
+
+        <!-- Three lines menu -->
+        <ImageView
+            android:id="@+id/btn_menu"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@android:drawable/ic_menu_more"
+            android:padding="4dp"/>
+    </LinearLayout>
+
+
+    <!-- Quick Access Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btn_safe_routes"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:text="Safe Routes"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#E91E63"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/btn_contacts"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:text="Emergency Contacts"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#9C27B0"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/btn_history"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:text="Alert History"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#3F51B5"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/btn_tips"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:text="Safety Tips"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#009688"/>
+    </LinearLayout>
+
+    <!-- Bottom Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:layout_marginTop="260dp"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/txt_home"
+            android:layout_weight="1"
+            android:text="🏠 Home"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/txt_sos"
+            android:layout_weight="1"
+            android:text="🚨 SOS"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/txt_profile"
+            android:layout_weight="1"
+            android:text="👤 Profile"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>

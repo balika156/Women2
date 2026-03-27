@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:padding="0dp">
+
+    <!-- 🔝 TOP BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#D32F2F"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Women Safety App"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- 🔘 SOS BUTTON CARD -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/btnSOS"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@drawable/red_circle"
+            android:gravity="center"
+            android:stateListAnimator="@null"
+            android:text="🚨\nSOS"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Tap in Emergency"
+            android:textColor="#555555"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <!-- ⚙️ FEATURE BUTTONS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btnLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="📍 Share Location"/>
+
+        <Button
+            android:id="@+id/btnVoice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="🎤 Voice SOS"/>
+
+        <Button
+            android:id="@+id/btnSiren"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔊 Play Siren"/>
+    </LinearLayout>
+
+    <!-- 🔽 BOTTOM BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:weightSum="3"
+        android:elevation="8dp"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:id="@+id/txt_home"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="🏠 Home"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/txt_sos"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="🚨 SOS"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/txt_profile"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="👤 Profile"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>
