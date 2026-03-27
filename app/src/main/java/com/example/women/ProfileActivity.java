@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,16 +21,21 @@ public class ProfileActivity extends AppCompatActivity {
         tvEmail = findViewById(R.id.tvEmail);
         btnLogout = findViewById(R.id.btnLogout);
 
-        // Demo user data
-        tvName.setText("Admin User");
-        tvEmail.setText("admin@gmail.com");
+        // 🔥 Safe data handling (NO CRASH)
+        String name = getIntent().getStringExtra("name");
+        String email = getIntent().getStringExtra("email");
 
-        btnLogout.setOnClickListener(view -> {
+        if (name != null)
+            tvName.setText(name);
+        else
+            tvName.setText("User");
 
-            Toast.makeText(this,
-                    "Logged Out Successfully",
-                    Toast.LENGTH_SHORT).show();
+        if (email != null)
+            tvEmail.setText(email);
+        else
+            tvEmail.setText("No Email");
 
+        btnLogout.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this,
                     LoginActivity.class);
 
