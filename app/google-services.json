@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "62510785835",
+    "project_id": "womeniotapp",
+    "storage_bucket": "womeniotapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62510785835:android:d75e41d8aeea488448916e",
+        "android_client_info": {
+          "package_name": "com.example.women"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKUha6Kw3gU21wwWbDS4vEL7c2osnTjIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
