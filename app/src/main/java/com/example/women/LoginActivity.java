@@ -1,28 +1,23 @@
 package com.example.women;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.firebase.database.*;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText etEmail, etPassword;
     Button btnLogin;
-    TextView txtRegister;
+    TextView txtRegister, txtForgetPassword;
 
-    SharedPreferences sharedPreferences;
-
-    private static final String PREFS_NAME = "UsersPrefs";
-    private static final String USERS_KEY = "Users";
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +28,11 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         txtRegister = findViewById(R.id.txtRegister);
+        txtForgetPassword = findViewById(R.id.txtForgetPassword);
 
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
+        // 🔐 LOGIN
         btnLogin.setOnClickListener(view -> {
 
             String email = etEmail.getText().toString().trim();
@@ -51,55 +48,109 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            try {
-                JSONArray usersArray =
-                        new JSONArray(sharedPreferences.getString(USERS_KEY, "[]"));
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
 
-                boolean isFound = false;
-                String name = "";
+                    boolean isFound = false;
+                    String name = "", phone = "", emergency = "";
 
-                for (int i = 0; i < usersArray.length(); i++) {
-                    JSONObject user = usersArray.getJSONObject(i);
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
 
-                    if (user.getString("email").equals(email) &&
-                            user.getString("password").equals(password)) {
+                        String dbEmail = userSnapshot.child("email").getValue(String.class);
+                        String dbPassword = userSnapshot.child("password").getValue(String.class);
 
-                        isFound = true;
-                        name = user.getString("name");
-                        break;
+                        if (email.equals(dbEmail) && password.equals(dbPassword)) {
+
+                            isFound = true;
+                            name = userSnapshot.child("name").getValue(String.class);
+                            phone = userSnapshot.child("phone").getValue(String.class);
+                            emergency = userSnapshot.child("emergency").getValue(String.class);
+                            break;
+                        }
+                    }
+
+                    if (isFound) {
+
+                        SharedPreferences sp = getSharedPreferences("UserData", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("name", name);
+                        editor.putString("email", email);
+                        editor.putString("phone", phone);
+                        editor.putString("emergency", emergency);
+                        editor.apply();
+
+                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        finish();
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                     }
                 }
 
-                if (isFound) {
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Toast.makeText(LoginActivity.this, "Database Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
 
-                    Toast.makeText(this,
-                            "Login Successful",
-                            Toast.LENGTH_SHORT).show();
+        // 🔥 FORGOT PASSWORD WORKING
+        txtForgetPassword.setOnClickListener(v -> {
 
-                    // ✅ HOME ACTIVITY ला जा (IMPORTANT FIX)
-                    Intent intent = new Intent(LoginActivity.this,
-                            HomeActivity.class);
+            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show(); // test
 
-                    intent.putExtra("name", name);
-                    intent.putExtra("email", email);
+            String email = etEmail.getText().toString().trim();
 
-                    startActivity(intent);
-                    finish();
+            if (TextUtils.isEmpty(email)) {
+                etEmail.setError("Enter Email first");
+                return;
+            }
 
-                } else {
-                    Toast.makeText(this,
-                            "Invalid Credentials",
-                            Toast.LENGTH_SHORT).show();
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+
+                    boolean found = false;
+
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+
+                        String dbEmail = userSnapshot.child("email").getValue(String.class);
+
+                        if (email.equals(dbEmail)) {
+
+                            found = true;
+                            String password = userSnapshot.child("password").getValue(String.class);
+
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("Your Password")
+                                    .setMessage("Password: " + password)
+                                    .setPositiveButton("OK", null)
+                                    .show();
+
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        Toast.makeText(LoginActivity.this,
+                                "Email not found",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Toast.makeText(LoginActivity.this,
+                            "Error",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
         txtRegister.setOnClickListener(v ->
-                startActivity(new Intent(LoginActivity.this,
-                        RegisterActivity.class)));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
     }
 }

@@ -16,4 +16,8 @@
     <item name="btn_history" type="id" />
     <item name="btn_tips" type="id" />
     <item name="btn_menu" type="id" />
+    <item name="contactList" type="id" />
+    <item name="btnAddContact" type="id" />
+    <item name="btnCall1098" type="id" />
+    <item name="btnCall100" type="id" />
 </resources>

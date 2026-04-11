@@ -1,7 +1,9 @@
 package com.example.women;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,40 +11,43 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView tvName, tvEmail;
-    Button btnLogout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
 
-        tvName = findViewById(R.id.tvName);
-        tvEmail = findViewById(R.id.tvEmail);
-        btnLogout = findViewById(R.id.btnLogout);
+        try {
+            setContentView(R.layout.activity_profile);
 
-        // 🔥 Safe data handling (NO CRASH)
-        String name = getIntent().getStringExtra("name");
-        String email = getIntent().getStringExtra("email");
+            TextView tvName = findViewById(R.id.tvName);
+            TextView tvEmail = findViewById(R.id.tvEmail);
+            TextView tvPhone = findViewById(R.id.tvPhone);
+            TextView tvEmergency = findViewById(R.id.tvEmergency);
+            Button btnLogout = findViewById(R.id.btnLogout);
 
-        if (name != null)
-            tvName.setText(name);
-        else
-            tvName.setText("User");
+            SharedPreferences sp = getSharedPreferences("UserData", MODE_PRIVATE);
 
-        if (email != null)
-            tvEmail.setText(email);
-        else
-            tvEmail.setText("No Email");
+            if (tvName != null)
+                tvName.setText("Name: " + sp.getString("name", "N/A"));
 
-        btnLogout.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfileActivity.this,
-                    LoginActivity.class);
+            if (tvEmail != null)
+                tvEmail.setText("Email: " + sp.getString("email", "N/A"));
 
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            if (tvPhone != null)
+                tvPhone.setText("Phone: " + sp.getString("phone", "N/A"));
 
-            startActivity(intent);
-        });
+            if (tvEmergency != null)
+                tvEmergency.setText("Emergency: " + sp.getString("emergency", "N/A"));
+
+            btnLogout.setOnClickListener(v -> {
+                sp.edit().clear().apply();
+
+                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            });
+
+        } catch (Exception e) {
+            Log.e("PROFILE_ERROR", e.toString());
+        }
     }
 }

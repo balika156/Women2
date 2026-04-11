@@ -10,26 +10,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TextView txtHome, txtSOS, txtProfile;
+    TextView txtHome;
+    TextView txtSOS;
+    TextView txtProfile;
     Button btnSafeRoutes, btnContacts, btnHistory, btnTips;
     ImageView btnMenu;
-
-    String name, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // 🔥 Get data from login
-        name = getIntent().getStringExtra("name");
-        email = getIntent().getStringExtra("email");
-
-        // Bind views
+        // Bottom nav
         txtHome = findViewById(R.id.txt_home);
         txtSOS = findViewById(R.id.txt_sos);
         txtProfile = findViewById(R.id.txt_profile);
 
+        // Buttons
         btnSafeRoutes = findViewById(R.id.btn_safe_routes);
         btnContacts = findViewById(R.id.btn_contacts);
         btnHistory = findViewById(R.id.btn_history);
@@ -37,16 +34,19 @@ public class HomeActivity extends AppCompatActivity {
 
         btnMenu = findViewById(R.id.btn_menu);
 
-        // Navigation
-        txtProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("name", name);
-            intent.putExtra("email", email);
-            startActivity(intent);
+        // ✅ Navigation
+
+        txtHome.setOnClickListener(v -> {
+            // already here
         });
 
         txtSOS.setOnClickListener(v ->
                 startActivity(new Intent(this, MainActivity.class)));
+
+        txtProfile.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileActivity.class)));
+
+        // ✅ FEATURE BUTTONS
 
         btnSafeRoutes.setOnClickListener(v ->
                 startActivity(new Intent(this, SafeRoutesActivity.class)));
