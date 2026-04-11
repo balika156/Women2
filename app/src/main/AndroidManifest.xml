@@ -1,59 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.women">
-
-    <!-- Permissions -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
-    <!-- 🔥 Telephony optional -->
+    <!-- 🌐 INTERNET (VERY IMPORTANT FOR MAPS) -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissions -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Telephony optional -->
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
 
     <application
         android:allowBackup="true"
-        android:label="Women"
         android:icon="@mipmap/ic_launcher"
+        android:label="Women"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-
-        <!-- 🔥 Launcher Activity -->
+        <activity
+            android:name=".activity_reset_password"
+            android:exported="false" />
+        <!-- 🔥 GOOGLE MAPS API KEY -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA67k5KZ_6V0Dp_tXSGpz9zjEEixdcyHFQ" /> <!-- 🔥 Launcher -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!-- 🔹 Home -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Other Activities -->
         <activity
             android:name=".HomeActivity"
-            android:exported="true"/>
-
-        <!-- 🔹 Auth -->
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true"/>
-
-        <!-- 🔹 Other pages -->
+            android:exported="true" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SafeRoutesActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".TipsActivity" />
         <activity android:name=".ProfileActivity" />
-
     </application>
 
 </manifest>
